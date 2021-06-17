@@ -1,0 +1,26 @@
+---
+title: "SoccerData"
+author: "Kyle Sabo"
+date: "6/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+```
+
+```{r}
+birthdates <- read_csv("birthdates.csv")
+birthdates %>% 
+  mutate(month = str_sub(value,7,8)) %>%
+  group_by(month) %>%
+  summarize(total = n()) %>% 
+  ggplot(mapping = aes(x = month, y = total)) +
+  geom_col(fill = "blue") +
+  labs(title = "Birth Months of Soccer Players",
+       subtitle = "More players were born in earlier months.",
+       x = "Birth Month",
+       y = "# of Players")
+```
+
